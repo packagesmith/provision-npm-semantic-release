@@ -1,0 +1,60 @@
+{
+  "name": "provision-npm-semantic-release",
+  "version": "0.0.0-development",
+  "description": "Provision your package to include semantic-release",
+  "homepage": "http://packagesmith.github.io/provision-npm-semantic-release",
+  "bugs": "http://github.com/packagesmith/provision-npm-semantic-release/issues",
+  "license": "MIT",
+  "author": "Keith Cirkel (http://keithcirkel.co.uk)",
+  "files": [
+    "lib/"
+  ],
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/packagesmith/provision-npm-semantic-release"
+  },
+  "scripts": {
+    "lint": "eslint src test --ignore-path .gitignore",
+    "prepublish": "babel src -d lib",
+    "pretest": "npm run lint",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "test": "mocha --recursive test/ --compilers js:babel/register",
+    "watch": "npm run prepublish -- -w"
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "validate-commit-msg"
+    }
+  },
+  "babel": {
+    "compact": false,
+    "ignore": "node_modules",
+    "loose": "all",
+    "stage": 2
+  },
+  "eslintConfig": {
+    "extends": "strict",
+    "parser": "babel-eslint"
+  },
+  "dependencies": {
+    "lodash.defaultsdeep": "^3.10.0",
+    "packagesmith": "^1.1.0",
+    "packagesmith.formats.json": "^1.0.1",
+    "packagesmith.questions.repository": "^1.0.1",
+    "sort-package-json": "^1.1.3",
+    "travis-after-all": "^1.4.4"
+  },
+  "devDependencies": {
+    "babel": "^5.8.34",
+    "babel-eslint": "^4.1.6",
+    "chai": "^3.3.0",
+    "eslint": "^1.10.3",
+    "eslint-config-strict": "^7.0.3",
+    "eslint-plugin-filenames": "^0.2.0",
+    "ghooks": "^1.0.1",
+    "mocha": "^2.3.4",
+    "semantic-release": "^4.3.5",
+    "validate-commit-msg": "^1.0.0"
+  }
+}
