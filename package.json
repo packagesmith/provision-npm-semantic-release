@@ -10,6 +10,7 @@
     "lib/"
   ],
   "main": "lib/index.js",
+  "bin": "lib/index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/packagesmith/provision-npm-semantic-release"
