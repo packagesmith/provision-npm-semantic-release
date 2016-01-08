@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import runProvisionerSet from 'packagesmith';
 import repositoryQuestion from 'packagesmith.questions.repository';
 import jsonFile from 'packagesmith.formats.json';
