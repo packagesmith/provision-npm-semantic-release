@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import chai from 'chai';
 chai.should();
 import provisionNpmSemanticRelease from '../src/';
