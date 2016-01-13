@@ -39,7 +39,7 @@
     "parser": "babel-eslint"
   },
   "dependencies": {
-    "lodash.defaultsdeep": "^3.10.0",
+    "lodash.defaultsdeep": "^4.0.1",
     "packagesmith": "^1.1.0",
     "packagesmith.formats.json": "^1.0.1",
     "packagesmith.questions.repository": "^1.0.1",
