@@ -56,6 +56,6 @@
     "ghooks": "^1.0.1",
     "mocha": "^2.3.4",
     "semantic-release": "^4.3.5",
-    "validate-commit-msg": "^1.0.0"
+    "validate-commit-msg": "^2.0.0"
   }
 }
