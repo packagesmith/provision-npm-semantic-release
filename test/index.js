@@ -41,7 +41,7 @@ describe('provisionNpmSemanticRelease', () => {
         .should.deep.equal({
           repository: {
             type: 'git',
-            url: 'foobar.git/baz',
+            url: 'git+ssh://foobar.git/baz',
           },
           devDependencies: {
             'ghooks': '^1.0.1',
@@ -57,6 +57,20 @@ describe('provisionNpmSemanticRelease', () => {
             'semantic-release': 'semantic-release pre && npm publish && semantic-release post',
           },
         });
+    });
+
+    it('converts git implicit ssh urls to specific git urls', () => {
+      JSON.parse(subFunction('{}', { repository: 'git@foobar.com/baz.git' }))
+        .repository.url.should.equal('git+ssh://git@foobar.com/baz.git');
+    });
+
+    it('retains protocol for explicit urls', () => {
+      JSON.parse(subFunction('{}', { repository: 'http://git@foobar.com/baz.git' }))
+        .repository.url.should.equal('http://git@foobar.com/baz.git');
+      JSON.parse(subFunction('{}', { repository: 'git://git@foobar.com/baz.git' }))
+        .repository.url.should.equal('git://git@foobar.com/baz.git');
+      JSON.parse(subFunction('{}', { repository: 'gopher://git@foobar.com/baz.git' }))
+        .repository.url.should.equal('gopher://git@foobar.com/baz.git');
     });
 
   });

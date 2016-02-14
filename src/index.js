@@ -1,16 +1,16 @@
 #!/usr/bin/env node
+import { format as formatUrl, parse as parseUrl } from 'url';
 import defaultsDeep from 'lodash.defaultsdeep';
 import jsonFile from 'packagesmith.formats.json';
 import repositoryQuestion from 'packagesmith.questions.repository';
 import runProvisionerSet from 'packagesmith';
 import sortPackageJson from 'sort-package-json';
-const sshUrlRegExp = /^((?:[^\@]+)@)?([a-zA-Z0-9\.]+):(.+)$/;
 function convertSshToProtocolUrl(url) {
-  const [ fullUrl, username, domain, path ] = String(url).match(sshUrlRegExp) || [];
-  if (fullUrl && domain && path) {
-    return `git+ssh://${ username || '' }${ domain }/${ path }`;
+  let parsed = parseUrl(String(url));
+  if (parsed.protocol === null) {
+    parsed = parseUrl(`git+ssh://${ String(url) }`);
   }
-  return url;
+  return formatUrl(parsed);
 }
 
 export function provisionNpmSemanticRelease() {
