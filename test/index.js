@@ -64,6 +64,11 @@ describe('provisionNpmSemanticRelease', () => {
         .repository.url.should.equal('git+ssh://git@foobar.com/baz.git');
     });
 
+    it('converts git implicit ssh urls with colons to specific git urls', () => {
+      JSON.parse(subFunction('{}', { repository: 'git@foobar.com:baz.git' }))
+        .repository.url.should.equal('git+ssh://git@foobar.com/baz.git');
+    });
+
     it('retains protocol for explicit urls', () => {
       JSON.parse(subFunction('{}', { repository: 'http://git@foobar.com/baz.git' }))
         .repository.url.should.equal('http://git@foobar.com/baz.git');

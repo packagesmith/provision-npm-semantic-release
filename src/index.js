@@ -9,6 +9,9 @@ function convertSshToProtocolUrl(url) {
   let parsed = parseUrl(String(url));
   if (parsed.protocol === null) {
     parsed = parseUrl(`git+ssh://${ String(url) }`);
+    if (/^\/:/.test(parsed.pathname)) {
+      parsed.pathname = parsed.pathname.replace(/^\/:/, '/');
+    }
   }
   return formatUrl(parsed);
 }
