@@ -39,6 +39,7 @@ describe('provisionNpmSemanticRelease', () => {
     it('adds requesite dependencies and ghooks config to json', () => {
       JSON.parse(subFunction('{}', { repository: 'foobar.git/baz' }))
         .should.deep.equal({
+          version: '0.0.0-development',
           repository: {
             type: 'git',
             url: 'git+ssh://foobar.git/baz',
