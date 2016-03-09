@@ -26,6 +26,7 @@ export function provisionNpmSemanticRelease() {
           delete packageJson.repository; // eslint-disable-line prefer-reflect
         }
         return sortPackageJson(defaultsDeep({
+          version: '0.0.0-development',
           repository: {
             type: 'git',
             url: convertSshToProtocolUrl(repository),
