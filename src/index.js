@@ -40,9 +40,9 @@ export function provisionNpmSemanticRelease() {
             'semantic-release': 'semantic-release pre && npm publish && semantic-release post',
           },
           devDependencies: {
-            'ghooks': '^1.0.1',
+            'ghooks': '^1.0.3',
             'semantic-release': '^4.3.5',
-            'validate-commit-msg': '^2.0.0',
+            'validate-commit-msg': '^2.3.1',
           },
         }, packageJson));
       }),

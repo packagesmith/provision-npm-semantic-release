@@ -45,9 +45,9 @@ describe('provisionNpmSemanticRelease', () => {
             url: 'git+ssh://foobar.git/baz',
           },
           devDependencies: {
-            'ghooks': '^1.0.1',
+            'ghooks': '^1.0.3',
             'semantic-release': '^4.3.5',
-            'validate-commit-msg': '^2.0.0',
+            'validate-commit-msg': '^2.3.1',
           },
           config: {
             ghooks: {
