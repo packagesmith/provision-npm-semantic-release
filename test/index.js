@@ -47,7 +47,7 @@ describe('provisionNpmSemanticRelease', () => {
           devDependencies: {
             'ghooks': '^1.0.3',
             'semantic-release': '^4.3.5',
-            'validate-commit-msg': '^2.3.1',
+            'validate-commit-msg': '^2.4.0',
           },
           config: {
             ghooks: {
