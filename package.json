@@ -48,6 +48,7 @@
     "packagesmith": "^1.1.2",
     "packagesmith.formats.json": "^1.0.1",
     "packagesmith.questions.repository": "^1.0.1",
+    "semver-addons": "^1.0.0",
     "sort-package-json": "^1.4.0",
     "travis-after-all": "^1.4.4"
   },

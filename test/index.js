@@ -60,6 +60,34 @@ describe('provisionNpmSemanticRelease', () => {
         });
     });
 
+    it('overwrites already existing older versions of dependencies', () => {
+      const packageJson = JSON.stringify({
+        devDependencies: {
+          'semantic-release': '^1.0.0',
+          'ghooks': '^1.0.0',
+          'validate-commit-msg': '^1.0.0',
+        },
+      });
+      const output = JSON.parse(subFunction(packageJson, { repository: 'foobar.git/baz' }));
+      output.should.have.deep.property('devDependencies.semantic-release', '^4.3.5');
+      output.should.have.deep.property('devDependencies.ghooks', '^1.0.3');
+      output.should.have.deep.property('devDependencies.validate-commit-msg', '^2.4.0');
+    });
+
+    it('does not overwrite already existing newer versions of eslint', () => {
+      const packageJson = JSON.stringify({
+        devDependencies: {
+          'semantic-release': '^999.999.991',
+          'ghooks': '^999.999.992',
+          'validate-commit-msg': '^999.999.993',
+        },
+      });
+      const output = JSON.parse(subFunction(packageJson, { repository: 'foobar.git/baz' }));
+      output.should.have.deep.property('devDependencies.semantic-release', '^999.999.991');
+      output.should.have.deep.property('devDependencies.ghooks', '^999.999.992');
+      output.should.have.deep.property('devDependencies.validate-commit-msg', '^999.999.993');
+    });
+
     it('converts git implicit ssh urls to specific git urls', () => {
       JSON.parse(subFunction('{}', { repository: 'git@foobar.com/baz.git' }))
         .repository.url.should.equal('git+ssh://git@foobar.com/baz.git');

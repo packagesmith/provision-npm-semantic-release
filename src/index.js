@@ -5,6 +5,7 @@ import jsonFile from 'packagesmith.formats.json';
 import repositoryQuestion from 'packagesmith.questions.repository';
 import runProvisionerSet from 'packagesmith';
 import sortPackageJson from 'sort-package-json';
+import { sortRange as sortSemverRanges } from 'semver-addons';
 function convertSshToProtocolUrl(url) {
   let parsed = parseUrl(String(url));
   if (parsed.protocol === null) {
@@ -25,6 +26,7 @@ export function provisionNpmSemanticRelease() {
         if (typeof packageJson.repository === 'string') {
           delete packageJson.repository; // eslint-disable-line prefer-reflect
         }
+        packageJson.devDependencies = packageJson.devDependencies || {};
         return sortPackageJson(defaultsDeep({
           version: '0.0.0-development',
           repository: {
@@ -40,9 +42,18 @@ export function provisionNpmSemanticRelease() {
             'semantic-release': 'semantic-release pre && npm publish && semantic-release post',
           },
           devDependencies: {
-            'ghooks': '^1.0.3',
-            'semantic-release': '^4.3.5',
-            'validate-commit-msg': '^2.4.0',
+            'ghooks': sortSemverRanges(
+              '^1.0.3',
+              packageJson.devDependencies.ghooks || '0.0.0'
+            ).pop(),
+            'semantic-release': sortSemverRanges(
+              '^4.3.5',
+              packageJson.devDependencies['semantic-release'] || '0.0.0'
+            ).pop(),
+            'validate-commit-msg': sortSemverRanges(
+              '^2.4.0',
+              packageJson.devDependencies['validate-commit-msg'] || '0.0.0'
+            ).pop(),
           },
         }, packageJson));
       }),
