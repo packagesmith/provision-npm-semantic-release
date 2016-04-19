@@ -29,7 +29,8 @@
   },
   "config": {
     "ghooks": {
-      "commit-msg": "validate-commit-msg"
+      "commit-msg": "validate-commit-msg",
+      "pre-commit": "npm t"
     }
   },
   "babel": {
