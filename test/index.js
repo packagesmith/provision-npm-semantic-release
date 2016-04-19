@@ -2,6 +2,7 @@ import chai from 'chai';
 chai.should();
 import provisionNpmSemanticRelease from '../src/';
 import repositoryQuestion from 'packagesmith.questions.repository';
+import { devDependencies as versions } from '../package.json';
 describe('provisionNpmSemanticRelease', () => {
 
   it('is a function', () => {
@@ -45,9 +46,9 @@ describe('provisionNpmSemanticRelease', () => {
             url: 'git+ssh://foobar.git/baz',
           },
           devDependencies: {
-            'ghooks': '^1.0.3',
-            'semantic-release': '^4.3.5',
-            'validate-commit-msg': '^2.4.0',
+            'ghooks': versions.ghooks || 'NO VERSION',
+            'semantic-release': versions['semantic-release'] || 'NO VERSION',
+            'validate-commit-msg': versions['validate-commit-msg'] || 'NO VERSION',
           },
           config: {
             ghooks: {
@@ -69,9 +70,12 @@ describe('provisionNpmSemanticRelease', () => {
         },
       });
       const output = JSON.parse(subFunction(packageJson, { repository: 'foobar.git/baz' }));
-      output.should.have.deep.property('devDependencies.semantic-release', '^4.3.5');
-      output.should.have.deep.property('devDependencies.ghooks', '^1.0.3');
-      output.should.have.deep.property('devDependencies.validate-commit-msg', '^2.4.0');
+      output.should.have.deep.property('devDependencies.semantic-release',
+        versions['semantic-release'] || 'NO VERSION');
+      output.should.have.deep.property('devDependencies.ghooks',
+        versions.ghooks || 'NO VERSION');
+      output.should.have.deep.property('devDependencies.validate-commit-msg',
+        versions['validate-commit-msg'] || 'NO VERSION');
     });
 
     it('does not overwrite already existing newer versions of eslint', () => {

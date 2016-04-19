@@ -6,6 +6,7 @@ import repositoryQuestion from 'packagesmith.questions.repository';
 import runProvisionerSet from 'packagesmith';
 import sortPackageJson from 'sort-package-json';
 import { sortRange as sortSemverRanges } from 'semver-addons';
+import { devDependencies as versions } from '../package.json';
 function convertSshToProtocolUrl(url) {
   let parsed = parseUrl(String(url));
   if (parsed.protocol === null) {
@@ -43,15 +44,15 @@ export function provisionNpmSemanticRelease() {
           },
           devDependencies: {
             'ghooks': sortSemverRanges(
-              '^1.0.3',
+              versions.ghooks,
               packageJson.devDependencies.ghooks || '0.0.0'
             ).pop(),
             'semantic-release': sortSemverRanges(
-              '^4.3.5',
+              versions['semantic-release'],
               packageJson.devDependencies['semantic-release'] || '0.0.0'
             ).pop(),
             'validate-commit-msg': sortSemverRanges(
-              '^2.4.0',
+              versions['validate-commit-msg'],
               packageJson.devDependencies['validate-commit-msg'] || '0.0.0'
             ).pop(),
           },
